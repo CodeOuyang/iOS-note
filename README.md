@@ -11,7 +11,6 @@
   * [命名属性和实例变量数](#命名属性和实例变量)
   * [命名常量](#命名常量)
   * [命名通知](#命名通知)
-  * [文件夹命名](#文件夹命名)
 * [注释](#注释)
   * [文件注释](#文件注释)
   * [代码注释](#代码注释)
@@ -456,8 +455,6 @@ NSWindowDidMiniaturizeNotification
 NSTextViewDidChangeSelectionNotification
 NSColorPanelColorDidChangeNotification
 ```
-## 文件夹命名
-不要搞Common，Core这些东西。每家公司的架构代码库里面，最恶心的一定是这两个名字命名的文件夹，我这么说一定不会错。不要开Common，Core这样的文件夹，开了之后后来者一定会把这个地方搞得一团糟，最终变成Common也不Common，Core也不Core。要记住，架构是不断成长的，是会不断变化的。不是每次成长每次变化，都是由你去实现的。如果真有什么东西特别小，那就索性为了他单独开辟一个模块就好了，小就小点，关键是要有序。
 
 ## 注释
 
