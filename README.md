@@ -1189,11 +1189,11 @@ UIViewController+VKLargeTitle.h
 
 ## 路由添加
 ### 步骤
-* 以添加`zze://vanke.com/user/decoration/list `为例
-* 找到`VKRouterMap.m`,具体路径(Modules->Base->VKRouter)
+* 以添加`zze://ouyang.com/user/decoration/list `为例
+* 找到`OYRouterMap.m`,具体路径(Modules->Base->OYRouter)
   * 在`getV2Map`方法中有一个`v2Map`的字典,该字典装着6个key.分别是`user`,`im`,`common`,`property`,`community`,`main`.每个key代表着一个大模块.每个key对应的value也是一个字典
   * 找到`user`模块(key),在他的value(字典)中添加`decoration/list`为key,`getDecorationListViewController`为值.
-  * <b>`getDecorationListViewController`是有一定规则的.get+类名(如有VK开头,需要把VK去掉),这个字符串其实是一个方法名称.最终会通过`VKUserAction`执行该方法</b>
+  * <b>`getDecorationListViewController`是有一定规则的.get+类名(如有VK开头,需要把VK去掉),这个字符串其实是一个方法名称.最终会通过`OYUserAction`执行该方法</b>
   
 ```
 + (NSDictionary *)getV2Map {
@@ -1203,7 +1203,7 @@ UIViewController+VKLargeTitle.h
     ···
     
     [v2Map setValue:@{
-                       @"moduleClassName": @"VKUserAction",
+                       @"moduleClassName": @"OYUserAction",
                        ···                      
                        @"decoration/list" : @"getDecorationListViewController",
                      }
@@ -1213,42 +1213,42 @@ UIViewController+VKLargeTitle.h
 }
 ```
 
-* 查找`VKUserAction+Decoration.m`,具体路径(Modules->User->Decoration->Actions).以`getDecorationListViewController `为名称建立一个返回装修列表的VC即可
+* 查找`OYUserAction+Decoration.m`,具体路径(Modules->User->Decoration->Actions).以`getDecorationListViewController `为名称建立一个返回装修列表的VC即可
 
 ```
-// VKUserAction+Decoration.m	
+// OYUserAction+Decoration.m	
 ...
 
 // 装修登记列表
 - (UIViewController *)getDecorationListViewController:(NSDictionary *)parameter {
-    VKDecorationListViewController *ctl = [VKDecorationListViewController new];
+    OYDecorationListViewController *ctl = [OYDecorationListViewController new];
     return ctl;
 }
 
 ```
 
-* 查找`VKRouterCenter+User`,具体路径(Modules->Base->VKRouter->Category).
-	在此文件中生成一个新方法,方法的命名规则是`vk_`+`getDecorationListViewController`。具体如下
+* 查找`OYRouterCenter+User`,具体路径(Modules->Base->OYRouter->Category).
+	在此文件中生成一个新方法,方法的命名规则是`oy_`+`getDecorationListViewController`。具体如下
 
 
 ```
-// VKRouterCenter+User
+// OYRouterCenter+User
 ...
 
-+ (UIViewController *)vk_getDecorationListViewController:(NSDictionary *)parameter {
++ (UIViewController *)oy_getDecorationListViewController:(NSDictionary *)parameter {
     return [self getViewControllerWithModule:module CMD:_cmd parameter:parameter];
 }
 ```
 
-* 完成了以上步骤就已经添加成功了.最后`VKRouterUnitTests.m`中.跑一下单元测试即可
+* 完成了以上步骤就已经添加成功了.最后`OYRouterUnitTests.m`中.跑一下单元测试即可
 
 ```
-// VKRouterUnitTests.m
+// OYRouterUnitTests.m
 ...
 
 // 装修登记列表
 - (void)testDecorationList {
-    testV2Router(@"zze://vanke.com/user/decoration/list", @"VKDecorationListViewController")
+    testV2Router(@"zze://ouyang.com/user/decoration/list", @"OYDecorationListViewController")
 }
 ```
 
